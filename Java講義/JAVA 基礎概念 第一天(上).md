@@ -1,4 +1,4 @@
-# Java基礎教學講義 (Java 21)
+# Java基礎教學講義 (上)(Java 21)
 
 ## 1 Java初識
 
