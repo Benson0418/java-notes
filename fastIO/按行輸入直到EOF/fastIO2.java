@@ -27,7 +27,7 @@ public class fastIO2 {
         }
         */
         while ((line = in.readLine()) != null) {
-            parts = line.trim().split("\\s+");
+            parts = line.split();
             for (String part : parts) {
                 out.println(part);
             }
