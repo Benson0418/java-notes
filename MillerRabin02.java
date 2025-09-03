@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 import java.math.BigInteger;
 
-//逃課法，isProbablePrime(k)表示方法內參數表示校驗k次，每個數字的偽陽性機率是1/(2^k)
+//逃課法，BigInteger中的isProbablePrime(k)方法，採用LucasLehmer和MillerEabin法混合判斷，表示方法內參數表示校驗k次，每個數字的偽陽性機率是1/(2^k)
 public class Main {
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
