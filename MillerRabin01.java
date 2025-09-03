@@ -1,6 +1,7 @@
 import java.util.*;
 import java.io.*;
 
+// BigInteger有內建米勒-拉賓質數法，可以逃課
 public class Main {
 	public static long[] witness = {2, 325, 9375, 28128, 450775, 9780504, 1795265022};
     public static void main(String[] args) throws IOException{
