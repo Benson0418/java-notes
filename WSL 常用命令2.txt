@@ -1,0 +1,258 @@
+root -i
+輸入密碼(密碼不顯示)
+
+su [-] [用戶名]
+//用戶名表示切換的用戶，默認root
+//-表示在切換後是否加載環境變數
+
+sudo 其他命令
+//為此條命令賦予root授權
+
+為普通用戶配置sudo認證
+輸入visudo
+或是 打開/etc/sudoers
+在最下方添加
+n95linux ALL=(ALL)	NOPASSWD:ALL
+大空格是tab鍵
+
+================================================
+用戶組管理 (以下命令需要root權限)
+//創建用戶組
+groupadd 用戶組名
+//刪除用戶組
+groupdel 用戶組名
+
+useradd [-g -d] 用戶名
+//-g指定用戶的組，不指定-g，會創建同名組，並自動加入，指定-g需要組已經存在，如已存在同名組，必須使用-g
+//-d 指定用戶HOME路徑，不指定，HOME目錄默認在: /home/用戶名
+
+userdel [-r]用戶名
+//-r 刪除用戶的HOME目錄
+
+id[用戶名]
+//參數用戶名，被查看的用戶，默認自身
+
+usermod -aG 用戶名 用戶名 
+//將指定用戶加入用戶組
+
+getent passwd//查看用戶信息
+getent group//查看用戶組信息
+
+ls -l
+
+權限信息解讀
+第一位
+-表示文件 d表示文件夾 l表示軟鏈接
+第二部分是所屬用戶組權限
+第三部分是所屬用戶權限
+地四部分是其他用戶權限
+
+[-或d或l][r或-,w或-,x或-][r或-,w或-,x或-][r或-,w或-,x或-]
+
+舉個例子
+drwxr-xr-x
+
+r 針對文件可以查看文件內容
+針對文件夾，可以查看文件夾內容，如ls命令
+
+w 針對文件表示可以修改此文件
+針對文件夾，可以在文件內: 創建、刪除、改名等操作
+
+x針對文件表示可將文件作為程序執行
+針對文件夾，表示可以更改工作目錄到此文件夾，即cd進入
+
+chmod [-R] 權限 文件或文件夾
+//-R表示對文件夾全部內容用同樣操作
+
+chmod u=rwx,g=rx,o=x hello.txt
+將文件權限修改為rwxr-x--x
+
+u表示user g表示group o表示other
+
+chmod -R u=rwx,g=rx,o=x test 將文件夾test及子文件全部調整權限
+
+此外，權限也能簡寫成三位數字
+r記為4 w記為2 x記為1
+
+0表示沒有任何權限
+2表示有w權限
+5表示有r和x權限
+7有全部權限
+
+751表示 rwx(7)r-x(5)--x(1)
+
+chown [-R] [用戶][:][用戶組] 文件或文件夾
+//只適用於root用戶執行
+//-R 對文件夾全部內容應用相同規則
+//用戶 修改所屬用戶
+//用戶組 修改所屬用戶組
+//:用來分隔用戶和用戶組
+
+<C+d> 退出或登出
+
+history 查看歷史輸入，數字越大越近
+history | grep ch
+
+! 感嘆號，自動執行上一次匹配前綴的
+<C+r> 輸入內容匹配歷史命令
+<C+a> 跳到開頭
+<C+e> 跳到結尾
+<C+鍵盤左鍵> 向左跳一個單詞
+<C+鍵盤右鍵> 向右跳一個單詞
+<C+l> 清空終端內容
+
+
+apt [-y] [install | remove |search] 軟件名稱
+需要root權限
+apt install wget 安裝wget
+apt remove wget 移除wget
+apt search wget 搜索wget
+
+systemctl start | stop | status | enable | disable 服務名
+//start啟動 stop關閉 status查看狀態 enable 開啟關機自啟 disable 關閉開機自啟
+
+ln -s 參數1 參數2
+//創建快捷方式(軟鏈接)
+//-s創建軟鏈接
+//參數1 被鏈接的文件或資料夾
+//參數2 要鏈接去的目的地
+
+
+date [-d][+格式化字符串]
+-d 按照給定的字符串顯示日期，一般用於日常計算
+格式化字符串: 通過特定的字符串標記，來控制顯示的日期格式
+
+%Y 年
+%y 年份後兩位數字
+%M 月份 (01,12)
+%d 日 (01,31)
+%H 小時 (00,23)
+%M 分鐘 (00,59)
+%S 秒 (00,59)
+%s 自 1970-01-01 00:00:00 UTC到現在的秒數(時間戳)
+-d選項，可以按照給定的字符串顯示日期，一般用於日期計算
+year年 month月 day天 hour小時 minute分鐘 second秒
+date "+%Y-%m-%d %H:%M:%S"
+date -d "+1 day"
+
+修改時區
+sudo mv /etc/localtime /etc/localtime.bak
+ln -s /usr/share/zoneinfo/Asia/Taipei /etc/localtime
+
+時間插件
+sudo apt install chrony
+systemctl status chrony
+sudo systemctl enable chrony
+
+apt -y install net-tools
+透過ifconfig
+查看當前ip地址
+127.0.0.1 指代本機
+0.0.0.0 用於指代本機 或在端口中使用綁定來確定關係 或表示所有ip
+
+更改主機名
+hostnamectl set-hostname myLinux
+/etc/hosts
+
+ping [-c num] ip或主機名
+//-c檢查的次數，不使用c表示無限次持續檢查
+
+wget [-b] url
+//-b，可選。後台校載，會將日志寫入到當前工作目錄的wget-log文件
+//url, 下載鏈接
+
+curl [-O] url
+//-O 用於下載文件，當url是下載練結實，可以使用此選項保存文件
+//url ，要發起請請求的網路地址
+
+snap install nmap
+nmap 被查看的ip地址
+//查看指定ip對外暴露的端口
+
+
+netstat -anp | grep 端口號
+
+公認端恐 1~1023 用於系統內置或常用知名軟件綁定使用
+註冊端口 1024~49151 用於鬆散綁定使用(用戶自定義)
+動態端口 49152~65535 用於臨時停用(多用於出口)
+
+
+ps [-e -f]
+//選項-e，顯示全部的進程
+//選項-f ，以完全格式化的形式展示信息(展示全部信息)
+
+關閉進程
+kill [-9] 進程ID
+//選項-9表示強制關閉進程
+
+top [-p -d -c -n -b -i -u]
+//透過top命令查看CPU，內存使用情況，默認每5秒刷新一次
+//-p只顯示某個進程的信息
+//-d設置刷新時間，默認5s
+//-c顯示產生進程的完整命令，默認是進程名
+//-n指定刷新次數，比如top -n 3，刷新輸出3次後退出
+//-b以非交互非群頻模式運行，以批次方式執行top，一般配合-n指定輸出幾次訊息，將輸出重定向到只訂文件，比如top -b -n 3 > /tmp/top.tmp
+//-i 不顯示閒置(idle)或殭屍(zombie)進程
+//-u 查找特定用戶啟動的進程
+
+當top以交互式運行 (非-b選項啟動)，可以用以下
+h键 按下h键,会显示帮助画面
+c键 按下c键,会显示产生进程的完整命令,等同于-c参数,再次按下c键,变为默认显示
+f键 按下f键,可以选择需要展示的项目
+M键 按下M键,根据驻留内存大小(RES)排序
+P键 按下P键,根据CPU使用百分比大小进行排序
+T键 按下T键,根据时间/累计时间进行排序
+E键 按下E键,切换顶部内存显示单位
+e键按下e键,切换进程内存显示单位
+1键按下1键,切换显示平均负载和启动时间信息。
+1键 按下1键,不显示闲置或无用的进程,等同于-1参数,再次按下,变为默认显示
+t键按下t键,切换显示CPU状态信息
+m键 按下m键,切换显示内存信息
+
+df[-h]
+//查看硬盤使用情況
+//-h，以更加人性化的單位顯示
+
+
+apt install sysstat
+iostat [-x][num1][num2]
+//選項-x 顯示更多信息
+//num1 刷新間隔，num2，刷新幾次
+
+sar -n DEV num1 num2
+//-n查看網路，DEV表示查看網路街口
+//num1刷新間隔(不填就察看一次結束)，num2查看次數(不填無限次數)
+
+env
+//查看系統所有環境變量
+
+$符號
+比如 echo $PATH
+echo ${PATH}ABC
+
+export 變量名=變量值
+export PATH=$PATH:/root/mynv
+//臨時記錄變量
+//針對當前用戶生效，配置在系統中的~/bashrc文件中
+//針對所有用戶生效，配置在系統的/etc/profile文件中
+
+apt install lrzsz
+
+
+tar [-c -v -x -f -z -C] 參數1 參數2 參數3 ...參數N
+//-c 創建壓縮文件
+//-v 顯示壓縮，解壓過程，用於察看進度
+//-x 解壓模式
+//-f 要創建的˙文件，或要解壓的文件，-f選項必須在我有選項中位置處於最後一個
+//-z gzip模式 ，不使用-z也就是普通的tarball模式
+//-C 選解壓目的地，用於解壓模式 
+tar -xvf test.gz -C ./desktop2
+tar -zcvf test.gz mynv test.tar
+
+sudo apt install zip
+zip [-r] 參數1 參數2...參數N
+//-r 包含文件夾時需要帶
+zip -r /home/user/backup/test.zip desktop desktop2 desktop3
+unzip [-d] 參數
+//-d表示指定解壓去的位置
+unzip test.zip -d ./desktop3
