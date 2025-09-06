@@ -1,0 +1,133 @@
+javac --release 21 Main.java && java Main 
+:! javac % && java %<
+默認java 23
+
+
+g++ -std=c++17 -O2 main.cpp -o main
+:! g++ -O2 % -o %< && ./%<
+默認++17
+
+python main.py
+:!python %
+
+vim $HOME/.vimrc
+
+這個叫做edit
+e ~/.config/init.lva等等
+./
+
+:saveas newname.cpp
+
+======================nvim================================
+C+n C+p 向下向上選 C+y 確認不執行
+
+S查找
+
+a新增文件夾
+d刪除文件
+r重命名
+tab多選	
+
+
+Shift+L 切換tab
+space+b 緩衝區操作
+兩次空格 查找文件 
+
+====================eeeeeeee我是分隔線======================
+命令列
+
+:e filename	打開檔案（edit）
+:w	保存檔案（write）
+:w filename	另存為
+:q	退出 Vim（quit）
+:q!	強制退出不保存
+:wq / :x	保存並退出
+:sav filename	另存並繼續編輯
+:source ~/.vimrc	重新載入 vimrc 設定
+
+====================eeeeeeee我是分隔線======================
+iaos IAOS 前後空刪
+
+wbe WBE 跳下跳上 到結尾 小寫遇符就停下
+
+i是inner a+空格
+
+wsp 單字句子段落
+
+uU~ 大小寫轉換
+
+ctrla ctrlx 增加減少數字
+
+左移<< 又移>> 改整行縮進 
+
+====================eeeeeeee我是分隔線======================
+
+f或t，加{字符} 往前往後找字符
+
+重複動作用逗分
+逗號,分號;前後找
+
+====================eeeeeeee我是分隔線======================
+
+/?加pattern{模式串} 向下向上找匹配(可以是ragex)
+*等於/{p} p就是 游標下的字
+
+n和N 向後向前重複找
+
+====================eeeeeeee我是分隔線======================
+
+m{char} 表示mark
+`{char} 跳到mark
+'{char} 跳到mark行首
+
+`加上`.^ 用來回到上次跳轉 修改 插入
+換成'變行首
+
+
+====================eeeeeeee我是分隔線======================
+
+0^$% 開始 第一個字 結尾 括號匹配處
+
+
+====================eeeeeeee我是分隔線======================
+. u ctrlr 重複 撤銷 反撤銷
+
+
+
+ci(	change inside ()
+di(	delete inside ()
+yi(	yank inside ()
+va(	visual select around ()
+vi{	visual select inside {}
+====================組合技======================
+Operator + Motion = Action
+count 次 action
+
+d3(
+dib 刪除括號內的東西
+
+3i 輸入點東西 esc
+3dd
+3daw
+gUU guu g~~ guw gUiw
+
+
+====================eeeee======================
+
+f{char}     跳轉到本行下一個 char 字元出現處 (包含)
+t{char}     跳轉到本行下一個 char 字元出現前 (不包含)
+;           快速向後重複 ft 查找
+,           快速向前重複 ft 查找
+F{char}     往前搜尋而非往後
+T{char}     往前搜尋到字元前而非往後
+====================寄存器======================
+"%.:_ 預設 檔名 上一次插入 上一次執行(指令) 黑洞
+
+"{reg}{action} 把內容放到暫存器中
+
+====================巨集與重播======================
+q{reg} 錄製
+q停止
+@重播
+@@重播上一次
+5@a 重播5次
