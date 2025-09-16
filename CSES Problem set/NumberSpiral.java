@@ -26,8 +26,6 @@ public class NumberSpiral{
             out.println(res);
 
         }
-        out.close();
-        br.close();
 
     } 
 
